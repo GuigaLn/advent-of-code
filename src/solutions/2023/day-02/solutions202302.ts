@@ -8,11 +8,12 @@ export class solutions202302 {
   constructor(private readonly array: string[]) {}
   
   calculate() {
-    const games: { game: string, values: { [key: string]: number }[], possible: boolean }[] = [];
+    const games: { game: string, values: { [key: string]: number }[], possible: boolean, power: number }[] = [];
 
     this.array.forEach(line => {
       let possible = true;
       const [game, values] = line.split(':');
+      const minValues: { [key: string]: number } = {};
 
       const valuesFormated = values.split(';').map(value => {
         const valueSplit = value.split(',');
@@ -37,19 +38,28 @@ export class solutions202302 {
           if(item[key] > value) {
             possible = false;
           }
+          if(!minValues[key] || (minValues[key] < item[key])) {
+            minValues[key] = item[key];
+          }
         });
       });
 
-      games.push({ game, values: valuesFormated, possible });
+      const power = Object.values(minValues).reduce((prev, currentValue,) => prev = prev * currentValue, 1);
+
+      games.push({ game, values: valuesFormated, possible, power });
     });
 
-    let sum = 0;
-    games.filter(game => game.possible).map(item => {
-      if(Number(item.game.split(' ')[1])) {
-        sum += Number(item.game.split(' ')[1]);
+    let sumOfPossibleGames = 0;
+    let sumPower = 0;
+    games.map(game => {
+      if(game.possible) {
+        if(Number(game.game.split(' ')[1])) {
+          sumOfPossibleGames += Number(game.game.split(' ')[1]);
+        }
       }
+      sumPower += game.power || 0;
     });
     
-    return { sum };
+    return { sumOfPossibleGames, sumPower };
   }
 }

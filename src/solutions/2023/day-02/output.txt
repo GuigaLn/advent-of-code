@@ -1,1 +1,1 @@
-2061
+{"sumOfPossibleGames":2061,"totalPower":72596}

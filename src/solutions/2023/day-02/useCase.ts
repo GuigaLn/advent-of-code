@@ -13,7 +13,12 @@ export const useCase202302 = async () => {
   });
 
   const calculate = new solutions202302(lines).calculate();
-  console.log(`The calculate value is: ${calculate.sum}`);
+  console.log(`The calculate value is: ${calculate.sumOfPossibleGames}`);
+  console.log(`The sum of power is: ${calculate.sumPower}`);
 
-  fs.writeFileSync(`${__dirname}/output.txt`, calculate.sum.toString());
+
+  fs.writeFileSync(`${__dirname}/output.txt`, JSON.stringify({
+    sumOfPossibleGames: calculate.sumOfPossibleGames,
+    totalPower: calculate.sumPower
+  }));
 };
