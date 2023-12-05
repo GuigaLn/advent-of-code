@@ -1,3 +1,3 @@
-import { useCase202301 } from './solutions/2023/day-01/useCase';
+import { useCase202302 } from './solutions/2023/day-02/useCase';
 
-useCase202301();
+useCase202302();
